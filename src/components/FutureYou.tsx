@@ -1,10 +1,10 @@
-import { useEffect, useState, useContext } from "react";
-import { PlanetContext } from "./../hooks/PlanetProvider";
+import { useEffect, useState } from "react";
+import { useStore } from "./../hooks/store";
 
 const FutureYou = () => {
+  const { planet } = useStore();
   const [you, setYou] = useState("");
   const url = "https://dog.ceo/api/breeds/image/random";
-  const { contextValue } = useContext(PlanetContext);
 
   useEffect(() => {
     fetch(url)
@@ -20,7 +20,7 @@ const FutureYou = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-6 text-blue-300 text-center">
-        This is Future You on Planet {contextValue.name}
+        This is Future You on Planet {planet.name}
       </h2>
       {you && (
         <img

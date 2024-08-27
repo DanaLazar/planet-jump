@@ -1,6 +1,6 @@
 import create from "zustand";
 import { Planet, PersonalInfo, Step } from "../types/types";
-import Smile from "./assets/smile.svg";
+import Smile from "./../assets/smile.svg";
 
 export const useStore = create<{
   planet: Planet;

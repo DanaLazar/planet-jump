@@ -1,13 +1,8 @@
-import { useState, useContext, useEffect } from "react";
-import { StepContext } from "./../../hooks/StepProvider";
+import { useEffect } from "react";
+import { useStore } from "./../../hooks/store";
 
 function AsideNav() {
-  const [active, setActive] = useState(0);
-  const { setStepValue } = useContext(StepContext);
-
-  useEffect(() => {
-    setStepValue({ step: active });
-  }, [active]);
+  const { step, setStep } = useStore();
 
   const steps = [
     { label: "Step 1", description: "Create an account" },
@@ -15,19 +10,25 @@ function AsideNav() {
     { label: "Step 3", description: "Jump" },
   ];
 
+  useEffect(() => {
+    setStep({ step: step.step });
+  }, [step.step]);
+
   return (
     <div className="flex flex-col space-y-7">
-      {steps.map((step, index) => (
+      {steps.map((stepItem, index) => (
         <div
           key={index}
           className={`flex items-start cursor-pointer ${
-            index <= active ? "text-blue-200" : "text-gray-200"
+            index <= step.step ? "text-blue-200" : "text-gray-200"
           }`}
-          onClick={() => setActive(index)}
+          onClick={() => setStep({ step: index })}
         >
           <div
             className={`w-8 h-8 flex items-center justify-center rounded-full border-2 ${
-              index <= active
+              index === step.step
+                ? "border-blue-600 bg-blue-600 text-white"
+                : index < step.step
                 ? "border-blue-600 bg-blue-600 text-white"
                 : "border-gray-300"
             }`}
@@ -35,8 +36,8 @@ function AsideNav() {
             {index + 1}
           </div>
           <div className="ml-4">
-            <div className="font-medium">{step.label}</div>
-            <div className="text-sm">{step.description}</div>
+            <div className="font-medium">{stepItem.label}</div>
+            <div className="text-sm">{stepItem.description}</div>
           </div>
         </div>
       ))}

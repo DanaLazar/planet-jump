@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import ImageMapper from "react-img-mapper";
-import { PlanetContext } from "./../hooks/PlanetProvider";
+import { useStore } from "./../hooks/store";
 
-// Define the custom area type if needed
+// Define the custom area type
 interface CustomArea {
   name: string;
   shape: string;
@@ -10,28 +10,23 @@ interface CustomArea {
 }
 
 const ChoosePlanet = () => {
-  const { setContextValue } = useContext(PlanetContext);
-  const [value, setValue] = useState<string | null>("Earth");
+  const { planet, setPlanet, setStep } = useStore();
 
-  const url = "https://api.api-ninjas.com/v1/planets?name=" + value;
+  const url = `https://api.api-ninjas.com/v1/planets?name=${planet.name}`;
 
   useEffect(() => {
     fetch(url, {
       method: "GET",
       headers: { "X-Api-Key": "v6O3Ugge/IZmIdbPI2yqdw==IqASYoaj5mQ1Mpwx" },
     })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("An error occurred");
-        }
-        return res.json();
-      })
-      .then((data) => setContextValue(data[0]))
-      .catch((error) => console.error(error));
-  }, [value]);
+      .then((res) => res.json())
+      .then((data) => setPlanet(data[0]))
+      .catch((err) => console.error("Error:", err));
+  }, [planet.name]);
 
-  const handleClick = (area: any, index: number, event: any) => {
-    setValue(area.name);
+  const handleClick = (area: any) => {
+    setPlanet({ ...planet, name: area.name });
+    setStep({ step: 2 });
   };
 
   const MAP = {

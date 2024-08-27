@@ -3,17 +3,9 @@ import AsideNav from "./components/layout/AsideNav";
 import AsideContent from "./components/layout/AsideContent";
 import HeaderContent from "./components/layout/HeaderContent";
 import ControlPanel from "./components/ControlPanel";
-import Smile from "./assets/smile.svg";
-
-interface Props {
-  children: React.ReactNode;
-}
+import FooterContent from "./components/layout/FooterContent";
 
 const Layout = () => {
-  const [name, setName] = useState("human");
-  const [greeting, setGreeting] = useState("hi");
-  const [image, setImage] = useState(Smile);
-
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-midnight text-white">
@@ -26,20 +18,16 @@ const Layout = () => {
         </aside>
 
         <main className="flex-1 bg-midnight-dark p-7">
-          <ControlPanel
-            setName={setName}
-            setGreeting={setGreeting}
-            setImage={setImage}
-          />
+          <ControlPanel />
         </main>
 
         <aside className="bg-midnight-blue w-96 p-4">
-          <AsideContent name={name} greeting={greeting} image={image} />
+          <AsideContent />
         </aside>
       </div>
 
-      <footer className="bg-midnight text-white p-7 text-center">
-        Back to Earth
+      <footer className="bg-midnight text-white p-7 flex justify-center">
+        <FooterContent />
       </footer>
     </div>
   );

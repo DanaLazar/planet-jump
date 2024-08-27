@@ -1,26 +1,18 @@
-import React, { useContext, useState } from "react";
-import { StepContext } from "./../hooks/StepProvider";
+import React, { useState } from "react";
+import { useStore } from "./../hooks/store";
 
-type ControlPanelType = {
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setGreeting: React.Dispatch<React.SetStateAction<string>>;
-  setImage: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const PersonalInfo = ({ setName, setGreeting, setImage }: ControlPanelType) => {
-  const { stepValue, setStepValue } = useContext(StepContext);
-
-  console.log("context step value", stepValue);
+const PersonalInfo = () => {
+  const { setStep, personalInfo, setName, setGreeting, setImage } = useStore();
 
   const initialValues = {
-    name: "Billy",
-    greeting: "What?",
-    image: ":)",
+    name: personalInfo.name,
+    greeting: personalInfo.greeting,
+    image: personalInfo.image,
     file: null as File | null,
     preview: "",
   };
 
-  const [formValues, setFormValues] = useState(initialValues);
+  const [formValues, setFormValues] = React.useState(initialValues);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -34,7 +26,7 @@ const PersonalInfo = ({ setName, setGreeting, setImage }: ControlPanelType) => {
     }
     setName(formValues.name);
     setGreeting(formValues.greeting);
-    setStepValue({ step: 1 });
+    setStep({ step: 1 });
     if (formValues.file) {
       setImage(formValues.preview);
     } else {
@@ -63,7 +55,7 @@ const PersonalInfo = ({ setName, setGreeting, setImage }: ControlPanelType) => {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 text-blue-300">
+      <h2 className="text-2xl font-bold mb-6 text-blue-300 text-center">
         You on planet Earth
       </h2>
       <form onSubmit={handleSubmit} className="max-w-xs mx-auto">

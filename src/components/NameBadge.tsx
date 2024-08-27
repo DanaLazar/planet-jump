@@ -1,19 +1,18 @@
-type NameBadgeProps = {
-  name: string;
-  greeting?: string;
-  image?: string;
-};
+import { useStore } from "../hooks/store";
 
-const NameBadge = ({ name, greeting, image }: NameBadgeProps) => {
+const NameBadge = () => {
+  const { personalInfo } = useStore();
   return (
     <div className="rounded-md border border-shadow-color p-7 text-center w-full shadow-3xl">
       <img
-        src={image}
+        src={personalInfo.image}
         alt="Avatar"
         className="w-20 h-20 rounded-full mx-auto"
       />
-      <p className="text-xl font-medium mt-4 text-gray-300">{greeting},</p>
-      <p className="text-gray-300 text-lg font-bold">{name}</p>
+      <p className="text-xl font-medium mt-4 text-gray-300">
+        {personalInfo.greeting},
+      </p>
+      <p className="text-gray-300 text-lg font-bold">{personalInfo.name}</p>
     </div>
   );
 };
