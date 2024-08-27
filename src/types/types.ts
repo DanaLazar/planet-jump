@@ -1,7 +1,7 @@
 export type Planet = {
     name: string;
     temperature: number;
-    distance_light_year: number;
+    distance_light_year: string;
 };
 
 export type Step = {

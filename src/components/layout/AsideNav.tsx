@@ -15,11 +15,11 @@ function AsideNav() {
   }, [step.step]);
 
   return (
-    <div className="flex flex-col space-y-7">
+    <div className="flex flex-row justify-center space-x-7 lg:flex-col lg:space-x-0 lg:space-y-7">
       {steps.map((stepItem, index) => (
         <div
           key={index}
-          className={`flex items-start cursor-pointer ${
+          className={`flex flex-col items-center lg:flex-row lg:items-start cursor-pointer ${
             index <= step.step ? "text-blue-200" : "text-gray-200"
           }`}
           onClick={() => setStep({ step: index })}
@@ -35,7 +35,7 @@ function AsideNav() {
           >
             {index + 1}
           </div>
-          <div className="ml-4">
+          <div className="mt-2 lg:mt-0 lg:ml-4 text-center lg:text-left">
             <div className="font-medium">{stepItem.label}</div>
             <div className="text-sm">{stepItem.description}</div>
           </div>

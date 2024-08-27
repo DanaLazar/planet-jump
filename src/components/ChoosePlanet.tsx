@@ -2,30 +2,27 @@ import { useEffect, useState } from "react";
 import ImageMapper from "react-img-mapper";
 import { useStore } from "./../hooks/store";
 
-// Define the custom area type
-interface CustomArea {
-  name: string;
-  shape: string;
-  coords: number[];
-}
-
 const ChoosePlanet = () => {
   const { planet, setPlanet, setStep } = useStore();
 
-  const url = `https://api.api-ninjas.com/v1/planets?name=${planet.name}`;
-
-  useEffect(() => {
+  const handleClick = (area: any) => {
+    const url = `https://api.api-ninjas.com/v1/planets?name=${area.name}`;
     fetch(url, {
       method: "GET",
       headers: { "X-Api-Key": "v6O3Ugge/IZmIdbPI2yqdw==IqASYoaj5mQ1Mpwx" },
     })
       .then((res) => res.json())
-      .then((data) => setPlanet(data[0]))
+      .then((data) => {
+        if (data.length > 0) {
+          const planetData = {
+            name: data[0].name,
+            temperature: data[0].temperature,
+            distance_light_year: data[0].distance_light_year.toString(),
+          };
+          setPlanet(planetData);
+        }
+      })
       .catch((err) => console.error("Error:", err));
-  }, [planet.name]);
-
-  const handleClick = (area: any) => {
-    setPlanet({ ...planet, name: area.name });
     setStep({ step: 2 });
   };
 

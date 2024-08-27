@@ -8,7 +8,7 @@ const FooterContent = () => {
 
   const handleReset = () => {
     // Reset all states to their initial values
-    setPlanet({ name: "Earth", temperature: 10, distance_light_year: 0 });
+    setPlanet({ name: "Earth", temperature: 288, distance_light_year: "0" });
     setStep({ step: 0 });
     setName("human");
     setGreeting("hi");

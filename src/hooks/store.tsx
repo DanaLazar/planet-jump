@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 import { Planet, PersonalInfo, Step } from "../types/types";
 import Smile from "./../assets/smile.svg";
 
@@ -14,8 +14,8 @@ export const useStore = create<{
 }>((set) => ({
   planet: {
     name: "Earth",
-    temperature: 10,
-    distance_light_year: 0,
+    temperature: 288,
+    distance_light_year: "0",
   },
   setPlanet: (planet: Planet) => set({ planet }),
 
