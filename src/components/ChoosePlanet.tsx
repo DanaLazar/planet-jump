@@ -47,12 +47,18 @@ const ChoosePlanet = () => {
       </h2>
       <div className="relative mx-auto w-full max-w-xl" id="parent">
         <ImageMapper
-          src="/planets.jpg"
+          src="/planet-jump/planets.jpg"
           map={MAP}
           onClick={handleClick}
           responsive={true}
           parentWidth={document.getElementById("parent")?.clientWidth || 800}
         />
+      </div>
+      <div className="text-sm text-right text-gray-400">
+        Image designed by{" "}
+        <a href="https://www.freepik.com/" target="_blanck">
+          Freepik
+        </a>
       </div>
     </div>
   );
